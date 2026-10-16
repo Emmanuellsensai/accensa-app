@@ -178,6 +178,16 @@ The backend verifies this signature before parsing the JSON.
 
 The report payload (`SettleHookPayload`) and Ed25519 signature scheme are a wire contract between the SDK and the Accensa indexer. Changes to the payload fields or signing mechanism are **breaking changes** and require a major version bump. See [CONTRIBUTING.md](../../CONTRIBUTING.md) for the semver policy.
 
+## Benchmarks
+
+The SDK had a `vitest bench` script and three `.bench.ts` files, but no
+workflow or root script ever invoked them — so they rotted silently. They were
+removed rather than given an executing home because benchmark timings on shared
+CI runners are inherently noisy, and gating merges on absolute numbers would
+add flaky failures without meaningful signal. If you need to profile a change,
+run `vitest bench` locally against the files you add; do not re-add a
+CI-scheduled benchmark step without a plan for stable runners.
+
 ## License
 
 MIT

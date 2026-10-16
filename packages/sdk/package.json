@@ -49,7 +49,6 @@
     "lint": "node scripts/check-lint-scripts.mjs && ../../apps/web/node_modules/.bin/eslint --config eslint.config.mjs .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "bench": "vitest bench",
     "typecheck": "tsc --noEmit",
     "gen:vectors": "node scripts/generate-vectors.mjs",
     "gen:api": "openapi-typescript ../../apps/web/openapi.yaml -o ./generated/api-types.ts && prettier --write ./generated/api-types.ts",
