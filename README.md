@@ -240,10 +240,10 @@ Two optional environment variables enable outbound alerting from the web app.
 Both are **opt-in**: when unset, the alerting code returns immediately and
 events are logged but never leave the process.
 
-| Variable                     | Consumer                                        | What it sends                                   |
-| ---------------------------- | ----------------------------------------------- | ----------------------------------------------- |
-| `SECURITY_ALERT_WEBHOOK_URL` | `apps/web/src/lib/security/alerting.ts`         | CSP violation reports and security-related events |
-| `SYNC_ALERT_WEBHOOK_URL`     | `apps/web/src/lib/sync-logger.ts`               | Sync-side alerts (indexer anomalies)             |
+| Variable                     | Consumer                                | What it sends                                     |
+| ---------------------------- | --------------------------------------- | ------------------------------------------------- |
+| `SECURITY_ALERT_WEBHOOK_URL` | `apps/web/src/lib/security/alerting.ts` | CSP violation reports and security-related events |
+| `SYNC_ALERT_WEBHOOK_URL`     | `apps/web/src/lib/sync-logger.ts`       | Sync-side alerts (indexer anomalies)              |
 
 These are **not** the same as `WEBHOOK_URL` / `WEBHOOK_SIGNING_KEY` (above),
 which deliver per-payment merchant webhooks. The alert variables are

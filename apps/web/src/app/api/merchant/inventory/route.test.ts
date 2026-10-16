@@ -43,7 +43,7 @@ function makeRequest(method: string, body?: unknown, options?: { raw?: string })
     body:
       method === 'GET'
         ? undefined
-        : options?.raw ?? (body !== undefined ? JSON.stringify(body) : 'not json'),
+        : (options?.raw ?? (body !== undefined ? JSON.stringify(body) : 'not json')),
   });
 }
 
@@ -52,9 +52,7 @@ describe('/api/merchant/inventory', () => {
     vi.clearAllMocks();
     process.env.DATABASE_URL = 'postgres://localhost/test';
     mockWithClient.mockImplementation((fn: (c: unknown) => unknown) => fn({}));
-    mockWithMerchantClient.mockImplementation(
-      (_id: string, fn: (c: unknown) => unknown) => fn({}),
-    );
+    mockWithMerchantClient.mockImplementation((_id: string, fn: (c: unknown) => unknown) => fn({}));
     mockEnsureSchema.mockResolvedValue(undefined);
     mockGetMerchant.mockResolvedValue({ id: 'm1' });
     mockIsAdmin.mockReturnValue(true);
