@@ -234,6 +234,23 @@ in only one of them unless a second vault is deployed. Receiving USDC also
 requires a trustline. Both constraints are spelled out in
 [DEPLOYMENT.md](DEPLOYMENT.md#settling-in-usdc-or-multiple-assets).
 
+### Outbound alerting (`SECURITY_ALERT_WEBHOOK_URL`, `SYNC_ALERT_WEBHOOK_URL`)
+
+Two optional environment variables enable outbound alerting from the web app.
+Both are **opt-in**: when unset, the alerting code returns immediately and
+events are logged but never leave the process.
+
+| Variable                     | Consumer                                        | What it sends                                   |
+| ---------------------------- | ----------------------------------------------- | ----------------------------------------------- |
+| `SECURITY_ALERT_WEBHOOK_URL` | `apps/web/src/lib/security/alerting.ts`         | CSP violation reports and security-related events |
+| `SYNC_ALERT_WEBHOOK_URL`     | `apps/web/src/lib/sync-logger.ts`               | Sync-side alerts (indexer anomalies)             |
+
+These are **not** the same as `WEBHOOK_URL` / `WEBHOOK_SIGNING_KEY` (above),
+which deliver per-payment merchant webhooks. The alert variables are
+deployment-internal: they point at an ops channel (Slack incoming webhook,
+PagerDuty Events v2, Discord webhook, etc.) and carry operational diagnostics,
+not payment data. Do not reuse one value for both.
+
 ## Testing
 
 CI runs ESLint, `tsc --noEmit`, the SDK and web test suites, and a production build
